@@ -1,13 +1,123 @@
 :root {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: "Quintessential", cursive;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+html {
+  height: 100vh;
+  background-image: url("./assets/image2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white;
+}
+
+.story-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.side-in-book {
+  max-width: 500px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.paper-img {
+  display: flex;
+  margin-top: 20px;
+  max-height: auto;
+  max-width: 90%;
+}
+
+.form-div {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.radio-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+h2 {
+  margin-bottom: 30px;
+  color: rgb(112, 1, 1);
+}
+
+.summary-h2 {
+  margin-bottom: 0;
+}
+
+.form-div .summary-container {
+  text-align: left; /* Align text to the left */
+  margin: 20px; /* Add some margin for spacing */
+  padding: 20px; /* Add padding for spacing */
+  background-color: #f9f9f9; /* Add a background color */
+}
+
+ul {
+  list-style-type: none; 
+  padding: 0; 
+}
+
+li {
+  display: flex;
+  margin: 5px 0;
+}
+
+li strong {
+  margin-right: 10px;
+}
+
+/* Add this CSS to position the progress bar */
+.progress-container {
+  position: fixed;
+  top: 0;
+  margin-top: 10%;
+  width: 200px; /* Adjust the width to your preference */
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  z-index: 999;
+
+}
+
+/* You can style the progress bar as you like */
+progress {
+  width: 100px;
+  height: 30px;
+}
+
+progress::-webkit-progress-value {
+  background: #00ffaa; /* Change the bar color */
+}
+
+.step-label {
+  color: #007BFF; /* Text color for the step label */
+  font-weight: bold;
 }
