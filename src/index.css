@@ -22,7 +22,7 @@ html {
   background-image: url("./assets/image2.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .story-container {
@@ -67,15 +67,19 @@ h2 {
   color: rgb(112, 1, 1);
 }
 
+p {
+  font-weight: bold;
+}
+
 .summary-h2 {
   margin-bottom: 0;
 }
 
 .form-div .summary-container {
-  text-align: left; /* Align text to the left */
-  margin: 20px; /* Add some margin for spacing */
-  padding: 20px; /* Add padding for spacing */
-  background-color: #f9f9f9; /* Add a background color */
+  text-align: left; 
+  margin: 20px; 
+  padding: 20px; 
+  background-color: #f9f9f9; 
 }
 
 ul {
@@ -92,12 +96,33 @@ li strong {
   margin-right: 10px;
 }
 
-/* Add this CSS to position the progress bar */
+button {
+  background-color: #dfd3c3;
+  border: #c7b198;
+  border-radius: 20px;
+  box-shadow: 1px 3px #c7b198;
+  font-family: Quintessential,cursive;
+  font-size: 18px;
+  padding: 5px 10px;
+}
+
+.clueButton {
+  background-color: #dfd3c3;
+  border: #c7b198;
+  border-radius: 20px;
+  box-shadow: 1px 3px #c7b198;
+  font-family: "Quintessential";
+  font-size: 16px;
+  padding: 5px 10px;
+  margin: 30px;
+}
+
+/* PROGRESS BAR */
 .progress-container {
   position: fixed;
   top: 0;
   margin-top: 10%;
-  width: 200px; /* Adjust the width to your preference */
+  width: 200px; 
   height: 20px;
   display: flex;
   justify-content: space-between;
@@ -107,17 +132,16 @@ li strong {
 
 }
 
-/* You can style the progress bar as you like */
 progress {
   width: 100px;
   height: 30px;
 }
 
 progress::-webkit-progress-value {
-  background: #00ffaa; /* Change the bar color */
+  background: #00ffaa; 
 }
 
 .step-label {
-  color: #007BFF; /* Text color for the step label */
+  color: #007BFF; 
   font-weight: bold;
 }

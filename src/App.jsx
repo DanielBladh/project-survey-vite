@@ -23,7 +23,6 @@ export default function App() {
   const [reflection, setReflection] = useState("");
   const [appQuestAchievement, setAppQuestAchievement] = useState("");
   const surveyImages = ["image1.jpg", "image2.jpg", "image3.jpg"];
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleCharacterSelect = (character, name, skill) => {
     setCharacter(character);
@@ -72,14 +71,19 @@ export default function App() {
     setSurveyProgress((currentStep + 1) * 12.5);
   };
 
+  const previousStep = () => {
+    setCurrentStep(currentStep - 1);
+    setSurveyProgress((currentStep - 1) * 12.5);
+  };
+
   const [surveyProgress, setSurveyProgress] = useState(0);
 
   return (
     <section className="story-container">
       <img src={parchmentPaper} className="paper-img" alt="parchment paper" />
       <div className="progress-container">
-        <span className="step-label">Step {currentStep + 1} of 8</span>
         <progress value={surveyProgress} max="100"></progress>
+        <span className="step-label">Step {currentStep} of 8</span>
       </div>
       <div className="side-in-book">
         {currentStep === 0 && <Introduction onStartSurvey={nextStep} />}
@@ -92,13 +96,17 @@ export default function App() {
                 characterData.selectedSkill
               )
             }
-            image={surveyImages[currentImageIndex]}
+            previousStep={previousStep}
           />
         )}
         {currentStep === 2 && (
           <FirstChallenge
             onNext={nextStep}
             onFirstImpressionSelect={handleFirstImpressionSelect}
+            characterName={characterName}
+            character={character}
+            previousStep={previousStep}
+            firstImpression={firstImpression} // Pass the firstImpression prop
           />
         )}
         {currentStep === 3 && (
@@ -108,6 +116,7 @@ export default function App() {
           <MysteriousRiddles
             onNext={nextStep}
             onRiddleAnswer={handleRiddleAnswer}
+            selectedReward={reward} // Pass selectedReward here, not handleRewardSelect
           />
         )}
         {currentStep === 5 && (

@@ -31,7 +31,6 @@ export default function BossBattle({ onWeaponSelect, onNext }) {
       <button onClick={() => onWeaponSelect(selectedWeapon)}>
         Select Weapon
       </button>
-      <button onClick={onNext}>Next</button>
     </div>
   );
 }

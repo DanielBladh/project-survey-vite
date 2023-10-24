@@ -1,25 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-export default function CharacterSelection({ onNext, onCharacterSelect }) {
+export default function CharacterSelection({ onNext, onCharacterSelect, previousStep }) {
   const [selectedCharacter, setSelectedCharacter] = useState("");
-  const [selectedSkill, setSelectedSkill] = useState("");
   const [characterName, setCharacterName] = useState("");
+  const [selectedSkill, setSelectedSkill] = useState("");
+  const [characterSkills, setCharacterSkills] = useState([]);
+
+  const characters = [
+    { name: "Wizard", skills: ["Fire", "Ice", "Lightning"] },
+    { name: "Pirate", skills: ["Swordsmanship", "Navigation", "Plundering"] },
+    {
+      name: "Shieldmaiden",
+      skills: ["Shield Mastery", "Battle Tactics", "Archery"],
+    },
+    {
+      name: "Paladin",
+      skills: ["Divine Auras", "Holy Powers", "Healing Powers"],
+    },
+  ];
 
   const handleCharacterSelect = (character) => {
     setSelectedCharacter(character);
-    console.log("Selected Character:", character);
-  };
-
-  const handleSkillSelect = (event) => {
-    const skill = event.target.value;
-    console.log("Selected Skill:", skill);
-    setSelectedSkill(skill);
+    const selectedCharacterData = characters.find(
+      (char) => char.name === character
+    );
+    if (selectedCharacterData) {
+      setCharacterSkills(selectedCharacterData.skills);
+      setSelectedSkill(""); // Reset selected skill
+    }
   };
 
   const handleNameChange = (event) => {
     const name = event.target.value;
     setCharacterName(name);
-    console.log("Character Name:", name);
+  };
+
+  const handleSkillSelect = (event) => {
+    const skill = event.target.value;
+    setSelectedSkill(skill);
   };
 
   const handleNext = () => {
@@ -32,6 +50,10 @@ export default function CharacterSelection({ onNext, onCharacterSelect }) {
     // Call the onNext function with the character data
     onNext(characterData);
   };
+
+  useEffect(() => {
+    handleCharacterSelect(selectedCharacter);
+  }, []);
 
   return (
     <>
@@ -46,52 +68,31 @@ export default function CharacterSelection({ onNext, onCharacterSelect }) {
         />
         <p>Choose your app class:</p>
         <div className="radio-buttons">
-          <label>
-            <input
-              type="radio"
-              name="character"
-              value="Wizard"
-              onChange={() => handleCharacterSelect("Wizard")}
-            />
-            A) Wizard
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="character"
-              value="Pirate"
-              onChange={() => handleCharacterSelect("Pirate")}
-            />
-            B) Pirate
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="character"
-              value="Paladin"
-              onChange={() => handleCharacterSelect("Paladin")}
-            />
-            C) Paladin
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="character"
-              value="Shieldmaiden"
-              onChange={() => handleCharacterSelect("Shieldmaiden")}
-            />
-            D) Shieldmaiden
-          </label>
+          {characters.map((char) => (
+            <label key={char.name}>
+              <input
+                type="radio"
+                name="character"
+                value={char.name}
+                onChange={() => handleCharacterSelect(char.name)}
+              />
+              {char.name[0]}) {char.name}
+            </label>
+          ))}
         </div>
         <p>Select your character's special skill:</p>
         <select value={selectedSkill} onChange={handleSkillSelect}>
           <option value="">Select Skill</option>
-          <option value="Magic">Magic</option>
-          <option value="Swordsmanship">Swordsmanship</option>
-          <option value="Technology">Holy powers</option>
-          <option value="Stealth">Stealth</option>
+          {characterSkills.map((skill) => (
+            <option key={skill} value={skill}>
+              {skill}
+            </option>
+          ))}
         </select>
+        <div>
+        <button onClick={previousStep}>Previous</button>
         <button onClick={handleNext}>Next</button>
+        </div>
       </div>
     </>
   );

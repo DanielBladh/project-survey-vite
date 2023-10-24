@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 
 export default function QuestRewards({ onRewardSelect }) {
-  const [selectedReward, setSelectedReward] = useState("");
+  const [selectedReward, setSelectedReward] = useState(""); // This is the corrected line
 
   const handleRewardSelect = (reward) => {
-    console.log("QuestReward:", reward);
     setSelectedReward(reward);
   };
 
   const handleNext = () => {
     // Create an object to hold the data
     const rewardData = {
-      selectedReward: selectedReward, // Make sure it's a string
+      selectedReward: selectedReward,
     };
     // Call the onRewardSelect function with the reward data
     onRewardSelect(rewardData);
@@ -19,37 +18,38 @@ export default function QuestRewards({ onRewardSelect }) {
 
   return (
     <div className="form-div">
-      <h2>Quest Rewards</h2>
-      <p>What kind of treasure would motivate you to complete this quest:</p>
+      <h2>Choose Your Quest Reward</h2>
+      <p>
+        As you prepare for your next adventure, you have three quest rewards to
+        choose from:
+      </p>
       <div className="radio-buttons">
         <label>
           <input
             type="radio"
             name="reward"
-            value="Endless free coffee"
-            onChange={() => handleRewardSelect("Endless free coffee")}
+            value="clue"
+            onChange={() => handleRewardSelect("Riddle Clue")}
           />
-          A) Endless free coffee
+          A) A note with some sort of clue on it.
         </label>
         <label>
           <input
             type="radio"
             name="reward"
-            value="Chest of gold coins"
-            onChange={() => handleRewardSelect("Chest of gold coins")}
+            value="potion"
+            onChange={() => handleRewardSelect("Potion of invisibility")}
           />
-          B) A chest of gold coins
+          B) Potion of invisibility
         </label>
         <label>
           <input
             type="radio"
             name="reward"
-            value="Lifetime supply of wizard robes"
-            onChange={() =>
-              handleRewardSelect("Lifetime supply of wizard robes")
-            }
+            value="pouch"
+            onChange={() => handleRewardSelect("Gold coins")}
           />
-          C) A lifetime supply of wizard robes
+          C) A small pouch with gold coins.
         </label>
       </div>
       <button onClick={handleNext}>Next</button>
