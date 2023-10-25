@@ -21,7 +21,7 @@ export default function QuestRewards({ onRewardSelect }) {
       <h2>Choose Your Quest Reward</h2>
       <p>
         As you prepare for your next adventure, you have three quest rewards to
-        choose from:
+        choose from, each of which can prove valuable in the future:
       </p>
       <div className="radio-buttons">
         <label>

@@ -8,11 +8,9 @@ export default function FirstChallenge({ onNext, characterName, character }) {
   const handleNext = (newChoice) => {
     if (storyStep === 1) {
       setPathChosen(newChoice);
-    } else {
-      setChoice(newChoice);
     }
 
-    if (storyStep < 3) {
+    if (storyStep < 2) {
       setStoryStep(storyStep + 1);
     } else {
       onNext();
@@ -55,7 +53,7 @@ export default function FirstChallenge({ onNext, characterName, character }) {
                 type="radio"
                 name="pathChosen"
                 value="ruinsoption"
-                onChange={() => handleNext("RuinsOption")}
+                onChange={() => handleNext("Ancient")}
               />
               C) Head towards the mystical waterfall and ancient ruins.
             </label>

@@ -1,21 +1,28 @@
 import React, { useState, useEffect } from "react";
 
-export default function CharacterSelection({ onNext, onCharacterSelect, previousStep }) {
+export default function CharacterSelection({
+  onNext,
+  onCharacterSelect,
+  previousStep,
+}) {
   const [selectedCharacter, setSelectedCharacter] = useState("");
   const [characterName, setCharacterName] = useState("");
   const [selectedSkill, setSelectedSkill] = useState("");
   const [characterSkills, setCharacterSkills] = useState([]);
 
   const characters = [
-    { name: "Wizard", skills: ["Fire", "Ice", "Lightning"] },
-    { name: "Pirate", skills: ["Swordsmanship", "Navigation", "Plundering"] },
+    { name: "Wizard", skills: ["Fireball", "Ice Lance", "Lightning bolt"] },
+    {
+      name: "Pirate",
+      skills: ["Cutlass Strike", "Cannon Barrage", "Blunderbuss Blast"],
+    },
     {
       name: "Shieldmaiden",
-      skills: ["Shield Mastery", "Battle Tactics", "Archery"],
+      skills: ["Shield Bash", "Precision Shot", "Battleaxe Cleave"],
     },
     {
       name: "Paladin",
-      skills: ["Divine Auras", "Holy Powers", "Healing Powers"],
+      skills: ["Smite", "Radiant Beam", "Crusade Strike"],
     },
   ];
 
@@ -75,8 +82,9 @@ export default function CharacterSelection({ onNext, onCharacterSelect, previous
                 name="character"
                 value={char.name}
                 onChange={() => handleCharacterSelect(char.name)}
+                style={{marginRight: "10px"}}
               />
-              {char.name[0]}) {char.name}
+                {char.name}
             </label>
           ))}
         </div>
@@ -89,9 +97,9 @@ export default function CharacterSelection({ onNext, onCharacterSelect, previous
             </option>
           ))}
         </select>
-        <div>
-        <button onClick={previousStep}>Previous</button>
-        <button onClick={handleNext}>Next</button>
+        <div className="character-buttons">
+          {/* <button onClick={previousStep}>Previous</button> */}
+          <button onClick={handleNext}>Next</button>
         </div>
       </div>
     </>

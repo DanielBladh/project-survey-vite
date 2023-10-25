@@ -33,7 +33,6 @@ export default function EpicSoundtrack({ onSoundtrackSelect, onNext }) {
       <button onClick={() => onSoundtrackSelect(selectedSoundtrack)}>
         Select Soundtrack
       </button>
-      <button onClick={onNext}>Next</button>
     </div>
   );
 }

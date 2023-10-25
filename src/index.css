@@ -32,7 +32,7 @@ html {
 }
 
 .side-in-book {
-  max-width: 500px;
+  max-width: 600px;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -96,6 +96,11 @@ li strong {
   margin-right: 10px;
 }
 
+.character-buttons {
+  display: flex;
+  gap: 20px;
+}
+
 button {
   background-color: #dfd3c3;
   border: #c7b198;
@@ -138,10 +143,27 @@ progress {
 }
 
 progress::-webkit-progress-value {
-  background: #00ffaa; 
+  background: #007BFF; 
 }
 
 .step-label {
   color: #007BFF; 
   font-weight: bold;
+}
+
+.sound-control {
+  position: absolute;
+  bottom: 10%;
+}
+
+.soundButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+button img {
+  width: 20px; /* Set the desired width */
+  height: 20px; /* Set the desired height */
 }
