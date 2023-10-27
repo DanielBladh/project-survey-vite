@@ -6,11 +6,13 @@ export default function MysteriousRiddles({
   selectedReward,
 }) {
   const [riddleAnswer, setRiddleAnswer] = useState("");
-  const [showClue, setShowClue] = useState(false); // Add a state for showing/hiding the clue
+  const [showClue, setShowClue] = useState(false);
+  const [inputError, setInputError] = useState(false); // Add inputError state
 
   const handleAnswer = (answer) => {
-    console.log("Riddle Answer: ", answer);
     setRiddleAnswer(answer);
+    // Clear the input error when the user types something
+    setInputError(false);
   };
 
   const clues = {
@@ -18,33 +20,49 @@ export default function MysteriousRiddles({
       "'I am a reflection of sound, repeating what you say when you're near...'",
   };
 
-  // Access the selectedReward property within the object
   const selectedRewardType = selectedReward.selectedReward;
   const clueText = clues[selectedRewardType];
 
   const handleShowClue = () => {
-    // Toggle the showClue state when the button is clicked
     setShowClue(!showClue);
+  };
+
+  const handleRiddleSubmission = () => {
+    // Validate the input using a regular expression
+    const regexPattern = /^[A-Za-z ]+$/;
+    if (!regexPattern.test(riddleAnswer)) {
+      setInputError(true);
+    } else {
+      setInputError(false);
+      onRiddleAnswer(riddleAnswer);
+    }
   };
 
   return (
     <div className="form-div">
       <h2>Mysterious Riddles</h2>
       <p>In your journey through the app, you encounter a mysterious riddle:</p>
-      <p style={{color: "white"}}>
+      <p style={{ color: "rgb(112, 10, 10)" }}>
         'I speak without a mouth and hear without ears. I have no body, but I
         come alive with wind.' What am I?
       </p>
       {selectedRewardType === "Riddle Clue" && (
         <div>
-          <p>You chose the clue as quest reward, this is the time to use it: <br/></p>
+          <p>
+            You chose the clue as a quest reward, this is the time to use it:{" "}
+            <br />
+          </p>
           {showClue ? (
             <div>
               <p>You received a clue:</p>
-              <p style={{color: "rgb(112, 1, 1)", padding: "15px"}}>{clueText}</p>
+              <p style={{ color: "rgb(112, 1, 1)", padding: "15px" }}>
+                {clueText}
+              </p>
             </div>
           ) : (
-            <button className="clueButton" onClick={handleShowClue}>Use Clue</button>
+            <button className="clueButton" onClick={handleShowClue}>
+              Use Clue
+            </button>
           )}
         </div>
       )}
@@ -53,9 +71,15 @@ export default function MysteriousRiddles({
         placeholder="Your answer"
         value={riddleAnswer}
         onChange={(e) => handleAnswer(e.target.value)}
-        style={{margin: "10px"}}
+        style={{ margin: "10px" }}
+        required
       />
-      <button onClick={() => onRiddleAnswer(riddleAnswer)}>Submit Answer</button>
+      {inputError && ( // Show the error message when inputError is true
+        <p style={{ color: "red" }}>
+          Input is required and can only contain letters and spaces.
+        </p>
+      )}
+      <button onClick={handleRiddleSubmission}>Submit answer</button>
     </div>
   );
 }

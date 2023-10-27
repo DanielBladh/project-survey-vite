@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 
 export default function QuestRewards({ onRewardSelect }) {
-  const [selectedReward, setSelectedReward] = useState(""); // This is the corrected line
+  const [selectedReward, setSelectedReward] = useState(""); 
 
   const handleRewardSelect = (reward) => {
     setSelectedReward(reward);
   };
 
   const handleNext = () => {
-    // Create an object to hold the data
     const rewardData = {
       selectedReward: selectedReward,
     };
@@ -52,7 +51,7 @@ export default function QuestRewards({ onRewardSelect }) {
           C) A small pouch with gold coins.
         </label>
       </div>
-      <button onClick={handleNext}>Next</button>
+      <button onClick={handleNext}>Continue</button>
     </div>
   );
 }

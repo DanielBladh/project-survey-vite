@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import potion from "../assets/potion.png"
 
 export default function BossBattle({ onNext, selectedReward, selectedSkill }) {
   const [proceed, setProceed] = useState(false);
@@ -20,7 +21,7 @@ export default function BossBattle({ onNext, selectedReward, selectedSkill }) {
     } else if (selectedRewardType === "Potion of invisibility" && !proceed) {
       newNarrative = `You decided to use the Potion of Invisibility`;
     } else if (selectedRewardType === "Gold coins" && !proceed) {
-      newNarrative = `You attempted to bribe the dragon with the pouch of gold coins`;
+      newNarrative = `You attempted to bribe the dragon with gold coins`;
     }
 
     const fullNarrative = newNarrative + getFullNarrative();
@@ -65,22 +66,23 @@ export default function BossBattle({ onNext, selectedReward, selectedSkill }) {
         {selectedRewardType === "Riddle Clue" && selectedSkill && !proceed ? (
           <div>
             You have no items to use. It seems your only option is to fight.
-            <button className="clueButton" onClick={handleProceed}>
-              Fight the dragon with {selectedSkill}
+            <button style={{marginTop: "20px"}} onClick={handleProceed}>
+              Use "{selectedSkill}"
             </button>
           </div>
         ) : selectedRewardType === "Potion of invisibility" && !proceed ? (
           <div>
             Use the potion to sneak past the dragon.
-            <button className="clueButton" onClick={handleProceed}>
+            <button className="bossButton" onClick={handleProceed}>
+              <img className="potionIcon" src={potion} alt="Potion" style={{width: "15px", height: "15px"}}/>
               Drink Potion
             </button>
           </div>
         ) : selectedRewardType === "Gold coins" && !proceed ? (
           <div>
-            Try to bribe the dragon with the pouch of gold.
-            <button className="clueButton" onClick={handleProceed}>
-              Try make a deal
+            Try to bribe the dragon with the pouch of gold:
+            <button className="bossButton" onClick={handleProceed}>
+              Offer gold
             </button>
           </div>
         ) : proceed ? (
@@ -90,11 +92,11 @@ export default function BossBattle({ onNext, selectedReward, selectedSkill }) {
         )}
       </div>
       {narrative && (
-        <div>
-          <p>{narrative}</p>
+        <div className="narrative-div">
+          <p style={{color: "rgb(112, 1, 1)"}}>{narrative}</p>
           {showProceedButton && (
             <button className="clueButton" onClick={handleNextStep}>
-              Proceed
+              Continue
             </button>
           )}
         </div>

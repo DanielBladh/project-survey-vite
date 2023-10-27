@@ -2,12 +2,18 @@ import React, { useState } from "react";
 
 export default function AppJourneyReflection({ onReflection, onNext }) {
   const [reflection, setReflection] = useState("");
-  const handleNextAndReflection = () => {
-    onReflection(reflection); // Call the onReflection function
-    onNext(); // Call the onNext function
-  };
+  const [error, setError] = useState(""); // Add error state
 
-  console.log("Reflection Answer:", reflection);
+  const handleNextAndReflection = () => {
+    if (reflection.length < 4) {
+      setError("Please enter at least 4 characters.");
+    } else if (reflection.length > 40) {
+      setError("Maximum 40 characters allowed.");
+    } else {
+      onReflection(reflection);
+      onNext();
+    }
+  };
 
   return (
     <div className="form-div">
@@ -20,9 +26,20 @@ export default function AppJourneyReflection({ onReflection, onNext }) {
         rows="4"
         cols="50"
         value={reflection}
-        onChange={(e) => setReflection(e.target.value)}
+        onChange={(e) => {
+          const text = e.target.value;
+          setReflection(text);
+          setError(""); 
+        }}
+        required
       />
-      <button onClick={handleNextAndReflection}>Submit Reflection and Next</button>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <p style={{ color: "gray" }}>
+        Please keep your reflection short and concise.
+      </p>
+      <button onClick={handleNextAndReflection}>
+        Submit Reflection and Next
+      </button>
     </div>
   );
 }

@@ -32,7 +32,7 @@ html {
 }
 
 .side-in-book {
-  max-width: 600px;
+  max-width: 500px;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -55,6 +55,10 @@ html {
   gap: 10px;
 }
 
+.error-message {
+  color: red;
+}
+
 .radio-buttons {
   display: flex;
   flex-direction: column;
@@ -67,24 +71,30 @@ h2 {
   color: rgb(112, 1, 1);
 }
 
+textarea {
+  max-width: 419px;
+  max-height: 122px;
+}
+
 p {
   font-weight: bold;
 }
 
 .summary-h2 {
+  margin-top: 50px;
   margin-bottom: 0;
 }
 
 .form-div .summary-container {
-  text-align: left; 
-  margin: 20px; 
-  padding: 20px; 
-  background-color: #f9f9f9; 
+  text-align: left;
+  margin: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
 }
 
 ul {
-  list-style-type: none; 
-  padding: 0; 
+  list-style-type: none;
+  padding: 0;
 }
 
 li {
@@ -95,20 +105,32 @@ li {
 li strong {
   margin-right: 10px;
 }
-
-.character-buttons {
-  display: flex;
-  gap: 20px;
-}
+/* BUTTONS */
 
 button {
   background-color: #dfd3c3;
   border: #c7b198;
   border-radius: 20px;
   box-shadow: 1px 3px #c7b198;
-  font-family: Quintessential,cursive;
+  font-family: Quintessential, cursive;
   font-size: 18px;
   padding: 5px 10px;
+  margin: 0, 20px;
+}
+
+button:hover {
+  background-color: #d4c9b9;
+  box-shadow: none;
+}
+
+.bossButton {
+  margin-top: 40px;
+  padding: 2px 8px;
+}
+
+.character-buttons {
+  display: flex;
+  gap: 20px;
 }
 
 .clueButton {
@@ -122,38 +144,11 @@ button {
   margin: 30px;
 }
 
-/* PROGRESS BAR */
-.progress-container {
-  position: fixed;
-  top: 0;
-  margin-top: 10%;
-  width: 200px; 
-  height: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px;
-  z-index: 999;
-
-}
-
-progress {
-  width: 100px;
-  height: 30px;
-}
-
-progress::-webkit-progress-value {
-  background: #007BFF; 
-}
-
-.step-label {
-  color: #007BFF; 
-  font-weight: bold;
-}
-
 .sound-control {
   position: absolute;
-  bottom: 10%;
+  bottom: 0;
+  left: 0;
+  margin: 20px;
 }
 
 .soundButton {
@@ -166,4 +161,204 @@ progress::-webkit-progress-value {
 button img {
   width: 20px; /* Set the desired width */
   height: 20px; /* Set the desired height */
+}
+
+/* BUTTONS */
+
+/* PROGRESS BAR */
+.progress-container {
+  position: fixed;
+  top: 0;
+  margin-top: 10%;
+  width: 200px;
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  z-index: 999;
+}
+
+progress {
+  width: 100px;
+  height: 30px;
+}
+
+progress::-webkit-progress-value {
+  background: #007bff;
+}
+
+.step-label {
+  color: #007bff;
+  font-weight: bold;
+}
+
+
+/* RESPONSIVE */
+
+@media screen and (max-width: 1024px) {
+  .progress-container {
+    margin-top: 15%;
+  }
+}
+
+@media screen and (max-width: 666px) {
+  .progress-container {
+    margin-top: 25%;
+    width: 100px;
+  }
+
+  .step-label {
+    display: flex;
+    text-align: center;
+  }
+
+  * {
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+  }
+
+  html {
+    height: 100%;
+  }
+
+  .paper-img {
+    max-width: 80%;
+    height: 80vh;
+  }
+
+  .form-div {
+    max-width: 280px;
+    gap: 0px;
+  }
+
+  .narrative-div {
+    width: 250px;
+    margin-top: 10px;
+  }
+
+  .radio-buttons {
+    display: flex;
+    align-items: flex-start;
+    gap: 0px;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  textarea {
+    max-width: 200px;
+    max-height: 100px;
+  }
+
+  p {
+    font-weight: normal; 
+  }
+
+  button {
+    font-size: 14px;
+    padding: 3px 8px;
+    margin-top: 20px;
+  }
+
+  .bossButton {
+    margin-top: 20px;
+    padding: 2px 6px;
+  }
+
+  .clueButton {
+    font-size: 14px;
+    padding: 3px 8px;
+    margin: 20px;
+  }
+
+  .playAgainButton {
+    margin-top: 10px;
+    padding: 2px;
+    font-size: 14px;
+  }
+
+  .sound-control {
+    bottom: 5%;
+  }
+
+  button img {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  .progress-container {
+    margin-top: 45%;
+    width: 100px;
+  }
+
+  .step-label {
+    display: flex;
+    text-align: center;
+  }
+
+  * {
+    font-size: 8px; 
+  }
+
+  .body {
+    padding: 5px; 
+  }
+
+  .paper-img {
+    max-width: 80%; 
+    max-height: 70vh;
+  }
+
+  .form-div {
+    max-width: 200px;
+    gap: 0px; 
+  }
+
+  .radio-buttons {
+    gap: 0px; 
+  }
+
+  h2 {
+    margin-bottom: 15px; 
+  }
+
+  textarea {
+    max-width: 100px; 
+    max-height: 80px; 
+  }
+
+  p {
+    font-weight: "bold"
+  }
+
+  button {
+    font-size: 12px; 
+    padding: 2px 6px; 
+    margin-top: 20px;
+  }
+
+  .bossButton {
+    margin-top: 15px; 
+    padding: 1px 4px; 
+  }
+
+  .clueButton {
+    font-size: 12px; 
+    padding: 2px 6px; 
+    margin: 15px; 
+  }
+
+  .sound-control {
+    bottom: 2%; 
+  }
+
+  button img {
+    width: 10px; 
+    height: 10px; 
+  }
 }

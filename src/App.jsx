@@ -6,6 +6,7 @@ import QuestRewards from "./components/QuestRewards";
 import MysteriousRiddles from "./components/MysteriousRiddles";
 import BossBattle from "./components/BossBattle";
 import EpicSoundtrack from "./components/EpicSoundtrack";
+import QuestImprovements from "./components/QuestImprovements";
 import AppJourneyReflection from "./components/AppJourneyReflection";
 import Summary from "./components/Summary";
 import parchmentPaper from "./assets/parchmentPaper.png";
@@ -21,7 +22,7 @@ export default function App() {
   const [reward, setReward] = useState("");
   const [riddleAnswer, setRiddleAnswer] = useState("");
   const [newNarrative, setNewNarrative] = useState("");
-  const [selectedSoundtrack, setSelectedSoundtrack] = useState("");
+  const [improvements, setImprovements] = useState("");
   const [reflection, setReflection] = useState("");
   const surveyImages = ["image1.jpg", "image2.jpg", "image3.jpg"];
   const audioRef = useRef(null);
@@ -45,9 +46,8 @@ export default function App() {
     nextStep();
   };
 
-  const handleSoundtrackSelect = (soundtrack) => {
-    setSelectedSoundtrack(soundtrack);
-    nextStep();
+  const handleImprovementsSubmit = (userImprovements) => {
+    setImprovements(userImprovements);
   };
 
   const handleReflection = (text) => {
@@ -144,9 +144,9 @@ export default function App() {
           />
         )}
         {currentStep === 6 && (
-          <EpicSoundtrack
+          <QuestImprovements
             onNext={nextStep}
-            onSoundtrackSelect={handleSoundtrackSelect}
+            onImprovementsSubmit={handleImprovementsSubmit}
           />
         )}
         {currentStep === 7 && (
@@ -163,7 +163,7 @@ export default function App() {
             reward={reward}
             riddleAnswer={riddleAnswer}
             newNarrative={newNarrative}
-            selectedSoundtrack={selectedSoundtrack}
+            improvements={improvements}
             reflection={reflection}
           />
         )}

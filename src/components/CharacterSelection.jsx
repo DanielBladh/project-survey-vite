@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-export default function CharacterSelection({
-  onNext,
-  onCharacterSelect,
-  previousStep,
-}) {
+export default function CharacterSelection({ onNext, previousStep }) {
   const [selectedCharacter, setSelectedCharacter] = useState("");
   const [characterName, setCharacterName] = useState("");
   const [selectedSkill, setSelectedSkill] = useState("");
   const [characterSkills, setCharacterSkills] = useState([]);
+  const [nameError, setNameError] = useState("");
+  const [formValid, setFormValid] = useState(false);
 
   const characters = [
     { name: "Wizard", skills: ["Fireball", "Ice Lance", "Lightning bolt"] },
@@ -37,34 +35,57 @@ export default function CharacterSelection({
     }
   };
 
+  const validateName = (name) => {
+    // Basic regex validation for character name
+    const regexPattern = /^[A-Za-z ]{0,10}$/;
+    if (!regexPattern.test(name)) {
+      setNameError(
+        "Character name can only contain letters and spaces, with a length between 3 and 10 characters."
+      );
+      return false; // Return false when validation fails
+    } else {
+      setNameError("");
+      return true; // Return true when validation succeeds
+    }
+  };
+
   const handleNameChange = (event) => {
     const name = event.target.value;
     setCharacterName(name);
+    const isNameValid = validateName(name); // Validate the name
+    setFormValid(isNameValid && selectedCharacter && selectedSkill); // Update form validity
   };
 
   const handleSkillSelect = (event) => {
     const skill = event.target.value;
     setSelectedSkill(skill);
+    setFormValid(validateName(characterName) && selectedCharacter && skill); // Update form validity
   };
 
   const handleNext = () => {
-    // Create an object to hold the data
-    const characterData = {
-      selectedCharacter,
-      selectedSkill,
-      characterName,
-    };
-    // Call the onNext function with the character data
-    onNext(characterData);
+    // Validate all fields before proceeding
+    if (selectedCharacter && selectedSkill && validateName(characterName)) {
+      setFormValid(true);
+      // Create an object to hold the data
+      const characterData = {
+        selectedCharacter,
+        selectedSkill,
+        characterName,
+      };
+      // Call the onNext function with the character data
+      onNext(characterData);
+    } else {
+      setFormValid(false);
+    }
   };
 
   useEffect(() => {
     handleCharacterSelect(selectedCharacter);
-  }, []);
+  }, [selectedCharacter]);
 
   return (
     <>
-      <h2>Character Creation</h2>
+      <h2 style={{marginTop: "40px"}}>Character Creation</h2>
       <div className="form-div">
         <p>Character Name:</p>
         <input
@@ -72,7 +93,10 @@ export default function CharacterSelection({
           value={characterName}
           onChange={handleNameChange}
           placeholder="Enter Character Name"
+          required
         />
+        {/* Display validation error message if present */}
+        {nameError && <p className="error-message">{nameError}</p>}
         <p>Choose your app class:</p>
         <div className="radio-buttons">
           {characters.map((char) => (
@@ -82,14 +106,16 @@ export default function CharacterSelection({
                 name="character"
                 value={char.name}
                 onChange={() => handleCharacterSelect(char.name)}
-                style={{marginRight: "10px"}}
+                style={{ marginRight: "10px" }}
+                required
               />
-                {char.name}
+              {char.name}
             </label>
           ))}
         </div>
         <p>Select your character's special skill:</p>
-        <select value={selectedSkill} onChange={handleSkillSelect}>
+        <select value={selectedSkill} onChange={handleSkillSelect} required>
+          {" "}
           <option value="">Select Skill</option>
           {characterSkills.map((skill) => (
             <option key={skill} value={skill}>
@@ -99,7 +125,9 @@ export default function CharacterSelection({
         </select>
         <div className="character-buttons">
           {/* <button onClick={previousStep}>Previous</button> */}
-          <button onClick={handleNext}>Next</button>
+          <button onClick={handleNext} disabled={!formValid}>
+            Continue
+          </button>{" "}
         </div>
       </div>
     </>

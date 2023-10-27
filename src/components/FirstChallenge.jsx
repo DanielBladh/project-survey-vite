@@ -3,18 +3,17 @@ import React, { useState } from "react";
 export default function FirstChallenge({ onNext, characterName, character }) {
   const [storyStep, setStoryStep] = useState(1);
   const [choice, setChoice] = useState("");
-  const [pathChosen, setPathChosen] = useState("");
 
-  const handleNext = (newChoice) => {
-    if (storyStep === 1) {
-      setPathChosen(newChoice);
-    }
-
-    if (storyStep < 2) {
+  const handleNext = () => {
+    if (storyStep === 1 && choice !== "") {
       setStoryStep(storyStep + 1);
-    } else {
-      onNext();
+    } else if (storyStep === 2) {
+      onNext(); 
     }
+  };
+
+  const handleChoiceChange = (newChoice) => {
+    setChoice(newChoice);
   };
 
   const renderStory = () => {
@@ -23,10 +22,11 @@ export default function FirstChallenge({ onNext, characterName, character }) {
         <>
           <h2>The First Challenge</h2>
           <p>
-            Greetings, <span style={{ color: "Red" }}>{characterName}</span> the <span style={{ color: "Red" }}>{character}</span>. As
-            you step through the shimmering gateway into this mysterious realm,
-            you find yourself in a place of enchanting wonders. The path ahead
-            forks, presenting you with a choice that will shape your adventure.
+            Greetings, <span style={{ color: "Red" }}>{characterName}</span> the{" "}
+            <span style={{ color: "Red" }}>{character}</span>. As you step
+            through the shimmering gateway into this mysterious realm, you find
+            yourself in a place of enchanting wonders. The path ahead forks,
+            presenting you with a choice that will shape your adventure.
             <br /> Which path do you choose?
           </p>
           <div className="radio-buttons">
@@ -35,7 +35,7 @@ export default function FirstChallenge({ onNext, characterName, character }) {
                 type="radio"
                 name="pathChosen"
                 value="MagicalForest"
-                onChange={() => handleNext("MagicalForest")}
+                onChange={() => handleChoiceChange("MagicalForest")}
               />
               A) Venture into the magical forest.
             </label>
@@ -44,7 +44,7 @@ export default function FirstChallenge({ onNext, characterName, character }) {
                 type="radio"
                 name="pathChosen"
                 value="Beach"
-                onChange={() => handleNext("Beach")}
+                onChange={() => handleChoiceChange("Beach")}
               />
               B) Explore the beach and pirate ship.
             </label>
@@ -52,137 +52,75 @@ export default function FirstChallenge({ onNext, characterName, character }) {
               <input
                 type="radio"
                 name="pathChosen"
-                value="ruinsoption"
-                onChange={() => handleNext("Ancient")}
+                value="Ancient"
+                onChange={() => handleChoiceChange("Ancient")}
               />
-              C) Head towards the mystical waterfall and ancient ruins.
+              C) Head towards the mystical ancient ruins.
             </label>
           </div>
-        </>
-      );
-    } else {
-      let content = "";
-
-      if (pathChosen === "MagicalForest") {
-        content = magicalForestContent(choice);
-      } else if (pathChosen === "Beach") {
-        content = beachContent(choice);
-      } else {
-        content = ruinsContent(choice);
-      }
-
-      return content;
-    }
-  };
-
-  const magicalForestContent = (choice) => {
-    if (choice === "ExploreGarden") {
-      // Handle the outcome for exploring the hidden garden
-      return (
-        <>
-          <p>
-            You decide to plant the magical seed in the garden. The garden
-            immediately flourishes with vibrant colors, and a path opens to a
-            hidden chamber. You enter the chamber and discover an ancient tome
-            with magical knowledge.
-          </p>
-          <p>
-            Congratulations, you've passed the first challenge and obtained the
-            knowledge of the enchanted tome. Your journey continues.
-          </p>
-          <button onClick={() => handleNext("MagicalGardenReward")}>
-            Next
+          <button onClick={handleNext} disabled={choice === ""}>
+            Continue
           </button>
         </>
       );
-    } else {
-      // Handle the outcome for following the mysterious light
-      return (
-        <>
-          <p>
-            You follow the mysterious light deeper into the forest, and it leads
-            you to an ancient tree. This tree grants you the power of nature,
-            and you feel more connected to the magical forest.
-          </p>
-          <p>
-            Congratulations, you've passed the first challenge and gained the
-            power of the forest. Your journey continues.
-          </p>
-          <button onClick={() => handleNext("MagicalForestPower")}>Next</button>
-        </>
-      );
+    } else if (storyStep === 2) {
+      // Display content based on the user's choice
+      if (choice === "MagicalForest") {
+        return magicalForestContent();
+      } else if (choice === "Beach") {
+        return beachContent();
+      } else if (choice === "Ancient") {
+        return ruinsContent();
+      }
     }
+    return null;
   };
 
-  const beachContent = (choice) => {
-    if (choice === "SearchPirateShip") {
-      // Handle outcome for searching the pirate ship
-      return (
-        <>
-          <p>
-            You decide to search the pirate ship, and you find a hidden chest
-            filled with gold coins. You are now wealthier than you could have
-            imagined.
-          </p>
-          <p>
-            Congratulations, you've passed the first challenge and acquired a
-            chest of gold coins. Your journey continues.
-          </p>
-          <button onClick={() => handleNext("PirateShipTreasure")}>Next</button>
-        </>
-      );
-    } else {
-      // Handle outcome for exploring the caves
-      return (
-        <>
-          <p>
-            You explore the caves by the beach and find a hidden treasure trove.
-            It's full of valuable artifacts and gems.
-          </p>
-          <p>
-            Congratulations, you've passed the first challenge and discovered a
-            treasure trove. Your journey continues.
-          </p>
-          <button onClick={() => handleNext("CaveTreasures")}>Next</button>
-        </>
-      );
-    }
-  };
+  const magicalForestContent = () => (
+    <>
+      <p>
+        You decide to plant the magical seed in the garden. The garden
+        immediately flourishes with vibrant colors, and a path opens to a hidden
+        chamber. You enter the chamber and discover an ancient tome with magical
+        knowledge.
+      </p>
+      <p style={{color: "rgb(112, 1, 1)"}}>
+        Congratulations, you've passed the first challenge and obtained the
+        knowledge of the enchanted tome. Your journey continues.
+      </p>
+      <NextButton />
+    </>
+  );
 
-  const ruinsContent = (choice) => {
-    if (choice === "ExamineRuins") {
-      // Handle outcome for examining the ancient ruins
-      return (
-        <>
-          <p>
-            As you examine the ancient ruins, you decipher an ancient script
-            that bestows you with ancient wisdom and knowledge.
-          </p>
-          <p>
-            Congratulations, you've passed the first challenge and acquired
-            ancient wisdom. Your journey continues.
-          </p>
-          <button onClick={() => handleNext("AncientWisdom")}>Next</button>
-        </>
-      );
-    } else {
-      // Handle outcome for approaching the magical waterfall
-      return (
-        <>
-          <p>
-            As you approach the magical waterfall, you feel a surge of mystical
-            energy. The waterfall imparts its magic to you, enhancing your
-            magical abilities.
-          </p>
-          <p>
-            Congratulations, you've passed the first challenge and gained
-            enhanced magical abilities. Your journey continues.
-          </p>
-          <button onClick={() => handleNext("EnhancedMagic")}>Next</button>
-        </>
-      );
-    }
-  };
+  const beachContent = () => (
+    <>
+      <p>
+        You explore the caves by the beach and find a hidden treasure trove.
+        It's full of valuable artifacts and gems.
+      </p>
+      <p style={{color: "rgb(112, 1, 1)"}}>
+        Congratulations, you've passed the first challenge and discovered a
+        treasure trove. Your journey continues.
+      </p>
+      <NextButton />
+    </>
+  );
+
+  const ruinsContent = () => (
+    <>
+      <p>
+        As you examine the ancient ruins, you decipher an ancient script that
+        bestows you with ancient wisdom and knowledge.
+      </p>
+      <p style={{color: "rgb(112, 1, 1)"}}>
+        Congratulations, you've passed the first challenge and acquired ancient
+        wisdom. Your journey continues.
+      </p>
+      <NextButton />
+    </>
+  );
+
+  const NextButton = () => <button onClick={handleNext}>Continue</button>;
 
   return <div className="form-div">{renderStory()}</div>;
 }
