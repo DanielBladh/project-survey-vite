@@ -21,7 +21,7 @@ export default function BossBattle({ onNext, selectedReward, selectedSkill }) {
     } else if (selectedRewardType === "Potion of invisibility" && !proceed) {
       newNarrative = `You decided to use the Potion of Invisibility`;
     } else if (selectedRewardType === "Gold coins" && !proceed) {
-      newNarrative = `You attempted to bribe the dragon with gold coins`;
+      newNarrative = `You bribed the dragon with gold coins`;
     }
 
     const fullNarrative = newNarrative + getFullNarrative();

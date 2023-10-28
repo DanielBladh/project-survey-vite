@@ -114,7 +114,7 @@ export default function CharacterSelection({ onNext, previousStep }) {
           ))}
         </div>
         <p>Select your character's special skill:</p>
-        <select value={selectedSkill} onChange={handleSkillSelect} required>
+        <select style={{width: "125px"}} value={selectedSkill} onChange={handleSkillSelect} required>
           {" "}
           <option value="">Select Skill</option>
           {characterSkills.map((skill) => (
