@@ -191,6 +191,11 @@ progress {
 
 
 /* RESPONSIVE */
+@media screen and (max-width: 1500px) {
+  .progress-container {
+    margin-top: 10%;
+  }
+}
 
 @media screen and (max-width: 1024px) {
   .progress-container {
