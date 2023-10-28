@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 export default function AppJourneyReflection({ onReflection, onNext }) {
   const [reflection, setReflection] = useState("");
-  const [error, setError] = useState(""); // Add error state
+  const [error, setError] = useState(""); 
 
   const handleNextAndReflection = () => {
     if (reflection.length < 4) {

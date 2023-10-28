@@ -5,7 +5,6 @@ import FirstChallenge from "./components/FirstChallenge";
 import QuestRewards from "./components/QuestRewards";
 import MysteriousRiddles from "./components/MysteriousRiddles";
 import BossBattle from "./components/BossBattle";
-import EpicSoundtrack from "./components/EpicSoundtrack";
 import QuestImprovements from "./components/QuestImprovements";
 import AppJourneyReflection from "./components/AppJourneyReflection";
 import Summary from "./components/Summary";

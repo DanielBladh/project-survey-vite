@@ -159,11 +159,11 @@ button:hover {
 }
 
 button img {
-  width: 20px; /* Set the desired width */
-  height: 20px; /* Set the desired height */
+  width: 20px; 
+  height: 20px; 
 }
 
-/* BUTTONS */
+/* END BUTTONS */
 
 /* PROGRESS BAR */
 .progress-container {
